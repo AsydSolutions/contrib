@@ -15,7 +15,7 @@ When creating a deploy please read carefully the documentation and follow the gu
 
 On the monitors/ directory you will find Monit rules for different services. This are simple files named as the service to be monitored, including the Monit rules for it. They also take variables and conditionals as for any other configuration file.
 
-For installing a monitor in your local ASYD installation just move that file to your dara/monitors/ folder (i.e. monitors/ssh on this repository to data/monitors/ssh in your ASYD server).
+For installing a monitor in your local ASYD installation just move that file to your data/monitors/ folder (i.e. monitors/ssh on this repository to data/monitors/ssh in your ASYD server).
 
 When creating a monitor please read carefully the documentation and also shortly describe what's for in a comment. As for the deploys, use conditional blocks if certain monitor file is only meant for certain systems.
 

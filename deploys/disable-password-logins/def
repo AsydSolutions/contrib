@@ -1,0 +1,6 @@
+# This deploy removes all passwords from /etc/shadow by replacing the has with a "!".
+# Alert: This will delete ALL your passwords from /etc/shadow, so you will be unable to log in without an ssh key anymore. Make sure, that your ssh key is working properly!
+
+if <%PKG_MANAGER%> == apt or <%PKG_MANAGER%> == yum or <%PKG_MANAGER%> == pacman or <%PKG_MANAGER%> == zypper
+    exec: sed -i.bak -r 's/^([^:]+):[^:\!\*]+:/\1:x:/' /etc/shadow
+endif
