@@ -1,0 +1,4 @@
+# Uninstalls mysql-server
+#
+
+uninstall: mysql-server

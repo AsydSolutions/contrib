@@ -1,0 +1,12 @@
+# With this we can create a random password and install mysql on a debian host
+#
+
+if <%PKG_MANAGER%> == apt
+	var mysql_password = exec: < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-12};echo;
+
+	exec: sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password <%VAR:mysql_password%>'
+	exec: sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password <%VAR:mysql_password%>'
+
+	install: mysql-server
+endif
+
