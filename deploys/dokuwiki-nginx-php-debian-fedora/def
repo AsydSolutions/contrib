@@ -1,0 +1,29 @@
+# This deploy will install nginx and php-fpm on debian or fedora (and derivates) and set up a dokuwiki instance
+#
+# Alert: Remember to set the variable "http_port" before launching
+#
+
+install if <%pkg_manager%> == yum: nginx php-fpm
+install if <%pkg_manager%> == apt: nginx php5-fpm
+
+exec: mkdir /var/www
+exec: cd /var/www && wget http://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz && tar xzf dokuwiki-stable.tgz
+exec: cd /var/www && rm -f dokuwiki-stable.tgz && mv dokuwiki* dokuwiki
+exec: chmod -R 777 /var/www/
+
+
+if <%pkg_manager%> == apt
+    config file: dokuwiki, /etc/nginx/sites-enabled/default
+    enable service: php5-fpm
+    restart service: php5-fpm
+endif
+
+if <%pkg_manager%> == yum
+    config file: dokuwiki, /etc/nginx/conf.d/default.conf
+    config file: www.conf, /etc/php-fpm.d/www.conf
+    enable service: php-fpm
+    restart service: php-fpm
+endif
+
+enable service: nginx
+restart service: nginx
